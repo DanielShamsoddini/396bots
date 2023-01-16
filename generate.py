@@ -4,7 +4,7 @@ def Create_World():
     l = 1
     w = 1
     h = 1
-    pyrosim.Send_Cube(name="Box", pos = [10,10,0.5], size = [l,w,h])
+    pyrosim.Send_Cube(name="Box", pos = [100,100,1.5], size = [l,w,h])
     pyrosim.End()
 
 #Create_World()
@@ -21,15 +21,15 @@ def Create_Robot():
 
 #Create_Robot()
 def Create_Robot2():
-    pyrosim.Start_URDF("body2.urdf")
+    pyrosim.Start_URDF("body.urdf")
     l = 1
     w = 1
     h = 1
     pyrosim.Send_Cube(name="Torso", pos = [0,0,1.5], size = [l,w,h])
-    pyrosim.Send_Joint( name = "Torso_Back_Leg" , parent= "Torso" , child = "Back_Leg" , type = "revolute", position =[-0.5,0,1])
-    pyrosim.Send_Cube(name="Back_Leg", pos = [-0.5,0,-0.5], size= [l,w,h])
-    pyrosim.Send_Joint( name = "Torso_Front_Leg" , parent= "Torso" , child = "Front_Leg" , type = "revolute", position =[0.5,0,1])
-    pyrosim.Send_Cube(name="Front_Leg", pos = [0.5,0,-0.5], size= [l,w,h])
+    pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position =[-0.5,0,1])
+    pyrosim.Send_Cube(name="BackLeg", pos = [-0.5,0,-0.5], size= [l,w,h])
+    pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position =[0.5,0,1])
+    pyrosim.Send_Cube(name="FrontLeg", pos = [0.5,0,-0.5], size= [l,w,h])
     pyrosim.End()
 Create_Robot2()
 #for c in range(0,5):
