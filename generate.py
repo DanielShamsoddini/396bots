@@ -32,6 +32,15 @@ def Create_Robot2():
     pyrosim.Send_Cube(name="FrontLeg", pos = [0.5,0,-0.5], size= [l,w,h])
     pyrosim.End()
 Create_Robot2()
+def Generate_Brain():
+    pyrosim.Start_NeuralNetwork("brain.nndf")
+    pyrosim.Send_Sensor_Neuron(name = 0, linkName = "Torso")
+    pyrosim.Send_Sensor_Neuron(name = 1, linkName = "BackLeg")
+    pyrosim.Send_Sensor_Neuron(name = 2, linkName = "FrontLeg")
+    pyrosim.Send_Motor_Neuron(name = 3, jointName = "Torso_BackLeg")
+    pyrosim.Send_Motor_Neuron(name = 4, jointName = "Torso_FrontLeg")
+    pyrosim.End()
+Generate_Brain()
 #for c in range(0,5):
 #    for b in range(0,5):
 #        l = 1
