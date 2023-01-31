@@ -1,6 +1,9 @@
 from simulation import SIMULATION
 from world import WORLD
-simulation = SIMULATION()
+import sys
+dorg =sys.argv[1]
+simulation = SIMULATION(dorg)
+simulation.Get_Fitness()
 
 # import pybullet as p
 # import time

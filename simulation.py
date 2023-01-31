@@ -11,9 +11,12 @@ import constants as c
 
 
 class SIMULATION:
-    def __init__(self):
-        
-        physicsClient = p.connect(p.GUI)
+    def __init__(self, dOrGUI):
+        self.directOrGUI = dOrGUI
+        if self.directOrGUI == "DIRECT":
+            physicsClient = p.connect(p.DIRECT)
+        elif self.directOrGUI == "GUI":
+            physicsClient  = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,-9.8)
         
@@ -24,9 +27,12 @@ class SIMULATION:
         self.world = WORLD()
         self.robot = ROBOT()
         self.Run()
-        self.__del__()
+        #self.delee()
 
     def Run(self):
+        sleeptime = 1/600
+        if self.directOrGUI == "DIRECT":
+            sleeptime = 0
         for a in range(0,1000):
             p.stepSimulation()
             self.robot.Sense()
@@ -36,5 +42,8 @@ class SIMULATION:
             
 
 
-    def __del__(self):
+    def delee(self):
         p.disconnect()
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()
