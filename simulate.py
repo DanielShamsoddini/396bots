@@ -1,8 +1,9 @@
 from simulation import SIMULATION
 from world import WORLD
 import sys
-dorg =sys.argv[1]
-simulation = SIMULATION(dorg)
+dorg = sys.argv[1]
+brainnn = sys.argv[2]
+simulation = SIMULATION(dorg, brainnn)
 simulation.Get_Fitness()
 
 # import pybullet as p

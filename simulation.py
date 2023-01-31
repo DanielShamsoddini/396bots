@@ -11,7 +11,7 @@ import constants as c
 
 
 class SIMULATION:
-    def __init__(self, dOrGUI):
+    def __init__(self, dOrGUI, brainnn):
         self.directOrGUI = dOrGUI
         if self.directOrGUI == "DIRECT":
             physicsClient = p.connect(p.DIRECT)
@@ -25,7 +25,7 @@ class SIMULATION:
 
 
         self.world = WORLD()
-        self.robot = ROBOT()
+        self.robot = ROBOT(brainnn)
         self.Run()
         #self.delee()
 
