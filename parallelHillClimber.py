@@ -68,7 +68,7 @@ class PARALLEL_HILL_CLIMBER:
 	def Show_Best(self):
 		print("finalgen")
 		lowestkey = 0
-		lowest = 10000
+		lowest = 100000000
 		for parent in self.parents:
 			if self.parents[parent].fitness < lowest:
 				lowest = self.parents[parent].fitness
