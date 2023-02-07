@@ -57,5 +57,5 @@ class ROBOT:
 		os.system("mv "+"tmp" + self.brainval +".txt " +"fitness" + self.brainval +".txt")
 		#print(stateOfLinkZero)
 		#print(positionOfLinkZero)
-		exit()
+		#exit()
 

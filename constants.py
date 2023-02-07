@@ -1,7 +1,7 @@
 import math
 
 numberOfGenerations = 10
-populationSize = 10
+populationSize = 1
 amplitudeB = -math.pi/4.0
 frequencyB = 5
 phaseOffsetB = 0
