@@ -2,7 +2,7 @@ import numpy
 import pyrosim.pyrosim as pyrosim
 class SENSOR:
 	def __init__(self, nme):
-		self.values = numpy.zeros(1001)
+		self.values = numpy.zeros(10000)
 		self.linkName = nme
 		self.a = 0
 		

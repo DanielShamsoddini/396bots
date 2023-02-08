@@ -5,6 +5,7 @@ from motor import MOTOR
 import constants as c
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
+import math
 
 class ROBOT:
 	def __init__(self, brainnn):
@@ -50,9 +51,9 @@ class ROBOT:
 	def Get_Fitness(self):
 		stateOfLinkZero = p.getLinkState(self.robotId, 0)
 		positionOfLinkZero = stateOfLinkZero[0]
-		xCoordinateOfLinkZero = positionOfLinkZero[0]
+		fit = -math.dist([5,10,0], positionOfLinkZero)
 		f = open("tmp" + self.brainval +".txt", "w")
-		f.write(str(xCoordinateOfLinkZero))
+		f.write(str(fit))
 		f.close()
 		os.system("mv "+"tmp" + self.brainval +".txt " +"fitness" + self.brainval +".txt")
 		#print(stateOfLinkZero)

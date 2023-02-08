@@ -30,7 +30,7 @@ class SIMULATION:
         #self.delee()
 
     def Run(self):
-        sleeptime = 1/600
+        sleeptime = 1/600000
         if self.directOrGUI == "DIRECT":
             sleeptime = 0
         for a in range(0,10000):

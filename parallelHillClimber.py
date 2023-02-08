@@ -21,6 +21,7 @@ class PARALLEL_HILL_CLIMBER:
 		# self.parent.Evaluate("GUI")
 		for currentGeneration in range(c.numberOfGenerations):
 			self.Evolve_For_One_Generation()
+			print("generation"+ str(currentGeneration))
 
 		self.Show_Best()
 		#self.Print()
@@ -38,6 +39,7 @@ class PARALLEL_HILL_CLIMBER:
 		self.Mutate()
 		self.Evaluate(self.children)
 		self.Print()
+		
 		self.Select()
 
 	def Spawn(self):

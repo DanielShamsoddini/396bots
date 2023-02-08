@@ -21,7 +21,7 @@ class SOLUTION:
 	    pyrosim.Send_Cube(name="Box", pos = [5,5,1.5], size = [l,w,h])
 	    pyrosim.Send_Cube(name="Box2", pos = [10,15,1.5], size = [l,w,h])
 	    pyrosim.Send_Cube(name="Box3", pos = [10,5,1.5], size = [l,w,h])
-	    pyrosim.Send_Cube(name="Box4", pos = [5,10,5.5], size = [1.5*l,1.5*w,5*h])
+	    pyrosim.Send_Cube(name="Box4", pos = [2,4,5.5], size = [1.5*l,1.5*w,5*h])
 	    pyrosim.Send_Cube(name="Bo5", pos = [20,20,1.5], size = [l,w,h])
 	    pyrosim.End()
 
