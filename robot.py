@@ -17,8 +17,8 @@ class ROBOT:
 		#print(brainnn)
 		os.system("rm brain"+brainnn+".nndf")
 		self.brainval = brainnn
-		
-		
+
+
 	def Prepare_To_Sense(self):
 		self.sensors = {}
 		for linkName in pyrosim.linkNamesToIndices:
@@ -49,11 +49,14 @@ class ROBOT:
 		#self.nn.Print()
 
 	def Get_Fitness(self):
-		stateOfLinkZero = p.getLinkState(self.robotId, pyrosim.linkNamesToIndices['Head'])
+		#stateOfLinkZero = p.getLinkState(self.robotId, pyrosim.linkNamesToIndices['Head'])
+		print(p.getBasePositionAndOrientation(self.robotId))
+		stateOfLinkZero = p.getBasePositionAndOrientation(self.robotId)[0]
 		print(pyrosim.linkNamesToIndices)
-		positionOfLinkZero =  stateOfLinkZero[0] 
-		
-		fit = -math.dist([5,10,0], positionOfLinkZero)
+		positionOfLinkZero =  stateOfLinkZero
+
+		fit = -math.dist([5,10], positionOfLinkZero[0:2])
+		print("finalposition:" + str(positionOfLinkZero))
 		f = open("tmp" + self.brainval +".txt", "w")
 		f.write(str(fit))
 		f.close()
@@ -61,4 +64,3 @@ class ROBOT:
 		#print(stateOfLinkZero)
 		#print(positionOfLinkZero)
 		#exit()
-

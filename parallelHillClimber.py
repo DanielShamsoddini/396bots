@@ -3,6 +3,7 @@ from solution import SOLUTION
 import constants as c
 import copy
 import os
+import numpy
 class PARALLEL_HILL_CLIMBER:
 	def __init__(self):
 		#os.system("rm brain*.nndf")
@@ -17,7 +18,7 @@ class PARALLEL_HILL_CLIMBER:
 
 	def Evolve(self):
 		self.Evaluate(self.parents)
-			
+
 		# self.parent.Evaluate("GUI")
 		for currentGeneration in range(c.numberOfGenerations):
 			self.Evolve_For_One_Generation()
@@ -39,7 +40,7 @@ class PARALLEL_HILL_CLIMBER:
 		self.Mutate()
 		self.Evaluate(self.children)
 		self.Print()
-		
+
 		self.Select()
 
 	def Spawn(self):
@@ -68,11 +69,10 @@ class PARALLEL_HILL_CLIMBER:
 			print("\n")
 
 	def Show_Best(self):
+
 		print("finalgen")
-		lowestkey = 0
-		lowest = 100000000
-		for parent in self.parents:
-			if self.parents[parent].fitness < lowest:
-				lowest = self.parents[parent].fitness
-				lowestkey = parent
-		self.parents[lowestkey].Start_Simulation("GUI")
+
+		parentfitness = [self.parents[parent].fitness for parent in self.parents]
+		minarg = numpy.argmax(parentfitness)
+		print(self.parents[minarg].fitness)
+		self.parents[minarg].Start_Simulation("GUI")

@@ -10,7 +10,7 @@ import pybullet_data
 
 class SOLUTION:
 	def __init__(self, nextav):
-		self.weights = 2*numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons) -1
+		self.weights = 2*numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons) -0.5
 		self.myID = nextav
 
 	def Create_World(self):
@@ -39,7 +39,7 @@ class SOLUTION:
 	    pyrosim.Send_Cube(name="UpLeg", pos = [-0.4, 0,0], size= [l,h,w])
 	    pyrosim.Send_Joint( name = "Torso_DownLeg" , parent= "Torso" , child = "DownLeg" , type = "revolute", position =[0,-0.5,1], jointAxis = "1 0 0")
 	    pyrosim.Send_Cube(name="DownLeg", pos = [0.4,0,0], size= [l,h,w])
-	    pyrosim.Send_Cube(name="Head", pos = [0.1,0, 0.5], size = [0.2,0.2,0.2])
+	    pyrosim.Send_Cube(name="Head", pos = [-0.5,0.5, 0.5], size = [0.2,0.2,0.2])
 	    pyrosim.Send_Joint(name = "Torso_Head", parent = "Torso", child = "Head", type = "revolute", position = [0.5,0,1], jointAxis = "0 1 0")
 
 
@@ -95,7 +95,7 @@ class SOLUTION:
 		os.system("rm " + "fitness" + str(self.myID)+".txt")
 
 	def Mutate(self):
-		self.weights[random.randint(0,c.numSensorNeurons-1)][random.randint(0,c.numMotorNeurons-1)] = (random.random()*2) -1
+		self.weights[random.randint(0,c.numSensorNeurons-1)][random.randint(0,c.numMotorNeurons-1)] = (random.random()*2) - 0.5
 
 	def Set_ID(self, numb):
 		self.myID = numb
