@@ -1,6 +1,6 @@
 import math
 
-numberOfGenerations = 1
+numberOfGenerations = 10
 populationSize = 2
 amplitudeB = math.pi/8.0
 frequencyB = 5

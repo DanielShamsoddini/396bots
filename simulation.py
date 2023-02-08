@@ -19,7 +19,7 @@ class SIMULATION:
             physicsClient  = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,-9.8)
-        
+
 
 
 
@@ -30,16 +30,16 @@ class SIMULATION:
         #self.delee()
 
     def Run(self):
-        sleeptime = 1/600000
+        sleeptime = 1/6000
         if self.directOrGUI == "DIRECT":
             sleeptime = 0
-        for a in range(0,10000):
+        for a in range(0,5000):
             p.stepSimulation()
             self.robot.Sense()
             self.robot.Think()
             self.robot.Act()
             time.sleep(sleeptime)
-            
+
 
 
     def delee(self):
