@@ -49,8 +49,10 @@ class ROBOT:
 		#self.nn.Print()
 
 	def Get_Fitness(self):
-		stateOfLinkZero = p.getLinkState(self.robotId, 0)
-		positionOfLinkZero = stateOfLinkZero[0]
+		stateOfLinkZero = p.getLinkState(self.robotId, pyrosim.linkNamesToIndices['Head'])
+		print(pyrosim.linkNamesToIndices)
+		positionOfLinkZero =  stateOfLinkZero[0] 
+		
 		fit = -math.dist([5,10,0], positionOfLinkZero)
 		f = open("tmp" + self.brainval +".txt", "w")
 		f.write(str(fit))
