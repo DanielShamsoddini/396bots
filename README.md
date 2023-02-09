@@ -16,3 +16,5 @@ Its fitness function is given by
   
   	the fitness equals the distance between the value in the bigblock variable and the robots final position plus a sizeable positive modifier if the bot collides with the block while the bot is "alive"
 		
+
+To run this program clone this repository and run runbotattack.py
