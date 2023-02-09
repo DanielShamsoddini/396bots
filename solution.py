@@ -10,11 +10,12 @@ import pybullet_data
 
 class SOLUTION:
 	def __init__(self, nextav):
-		self.weights = 2*numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons) -0.5
+		self.weights = 2*numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons) - 1
 		self.myID = nextav
+		self.a = numpy.zeros((c.numSensorNeurons, c.numMotorNeurons))
 
 	def Create_World(self):
-	    pyrosim.Start_SDF("world.sdf")
+	    pyrosim.Start_SDF("world"+str(self.myID)+".sdf")
 	    l = 1
 	    w = 1
 	    h = 1
@@ -26,11 +27,11 @@ class SOLUTION:
 	    pyrosim.End()
 
 	def Create_Body(self):
-	    pyrosim.Start_URDF("body.urdf")
+	    pyrosim.Start_URDF("body"+str(self.myID)+".urdf")
 	    l = 0.1
 	    w = 0.4
 	    h = 0.1
-	    pyrosim.Send_Cube(name="Torso", pos = [0,0,1.5], size = [1,0.8,0.5])
+	    pyrosim.Send_Cube(name="Torso", pos = [0,0,1.4], size = [1,1,0.5])
 	    pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , type = "revolute", position =[0.4,0.5,1], jointAxis = "1 0 0")
 	    pyrosim.Send_Cube(name="FrontLeg", pos = [0,0,0], size= [l,h,w])
 	    pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , type = "revolute", position =[0,-0.5,1], jointAxis = "1 0 0")
@@ -39,13 +40,21 @@ class SOLUTION:
 	    pyrosim.Send_Cube(name="UpLeg", pos = [-0.4, 0,0], size= [l,h,w])
 	    pyrosim.Send_Joint( name = "Torso_DownLeg" , parent= "Torso" , child = "DownLeg" , type = "revolute", position =[0,-0.5,1], jointAxis = "1 0 0")
 	    pyrosim.Send_Cube(name="DownLeg", pos = [0.4,0,0], size= [l,h,w])
-	    pyrosim.Send_Cube(name="Head", pos = [-0.5,0.5, 0.5], size = [0.2,0.2,0.2])
+	    pyrosim.Send_Cube(name="Head", pos = [-0.5,0.6, 0.5], size = [0.2,0.2,0.4])
 	    pyrosim.Send_Joint(name = "Torso_Head", parent = "Torso", child = "Head", type = "revolute", position = [0.5,0,1], jointAxis = "0 1 0")
 
 
 	    pyrosim.End()
 
-	def Generate_Brain(self):
+	def targnname(self, finalorno,x,y):
+		if finalorno:
+			z = int(random.randint(5,8))
+			#print(self.a[x][y])
+			self.a[x][y] = z
+			return z
+		else:
+			return self.a[x][y]
+	def Generate_Brain(self,finalorno):
 	    pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
 	    pyrosim.Send_Sensor_Neuron(name = 0, linkName = "Torso")
 	    pyrosim.Send_Sensor_Neuron(name = 1, linkName = "BackLeg")
@@ -72,7 +81,21 @@ class SOLUTION:
 	def Start_Simulation(self, dOrG):
 		self.Create_World()
 		self.Create_Body()
-		self.Generate_Brain()
+		self.Generate_Brain(True)
+
+		# while not os.path.exists("world.sdf"):
+		# 	time.sleep(0.01)
+		# while not os.path.exists("body.urdf"):
+		# 	time.sleep(0.01)
+		# while not os.path.exists("brain.nndf"):
+		# 	time.sleep(0.01)
+		os.system("python3 simulate.py " + dOrG +" "+str(self.myID)+
+                          #" 2&>1"+
+                          " &")
+	def Best_Simulation(self, dOrG):
+		self.Create_World()
+		self.Create_Body()
+		self.Generate_Brain(False)
 
 		# while not os.path.exists("world.sdf"):
 		# 	time.sleep(0.01)
@@ -84,7 +107,6 @@ class SOLUTION:
                           #" 2&>1"+
                           " &")
 
-
 	def Wait_For_Simulation_To_End(self):
 		while not os.path.exists("fitness" + str(self.myID)+".txt"):
 			time.sleep(0.01)
@@ -93,9 +115,10 @@ class SOLUTION:
 		#print(self.fitness)
 		f.close()
 		os.system("rm " + "fitness" + str(self.myID)+".txt")
+		os.system("rm body*.urdf")
 
 	def Mutate(self):
-		self.weights[random.randint(0,c.numSensorNeurons-1)][random.randint(0,c.numMotorNeurons-1)] = (random.random()*2) - 0.5
+		self.weights[random.randint(0,c.numSensorNeurons-1)][random.randint(0,c.numMotorNeurons-1)] = (random.random()*2) - 1
 
 	def Set_ID(self, numb):
 		self.myID = numb

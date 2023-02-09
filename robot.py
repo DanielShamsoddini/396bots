@@ -6,10 +6,11 @@ import constants as c
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
 import math
+import numpy
 
 class ROBOT:
 	def __init__(self, brainnn):
-		self.robotId = p.loadURDF("body.urdf")
+		self.robotId = p.loadURDF("body"+brainnn+".urdf")
 		pyrosim.Prepare_To_Simulate(self.robotId)
 		self.Prepare_To_Sense()
 		self.Prepare_To_Act()
@@ -17,6 +18,8 @@ class ROBOT:
 		#print(brainnn)
 		os.system("rm brain"+brainnn+".nndf")
 		self.brainval = brainnn
+		self.ifHit = 0
+		self.bigblock = [5,10]
 
 
 	def Prepare_To_Sense(self):
@@ -27,6 +30,7 @@ class ROBOT:
 	def Sense(self):
 		for sensorss in self.sensors:
 			self.sensors[sensorss].Get_Value()
+		self.isCol()
 
 	def Prepare_To_Act(self):
 		self.motors = {}
@@ -42,21 +46,34 @@ class ROBOT:
 				jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
 				desiredAngle = self.nn.Get_Value_Of(neuronName)
 				self.motors[jointName].Act(desiredAngle)
-				#print(jointName)
-				#print(neuronName)
+
+
 	def Think(self):
 		self.nn.Update()
-		#self.nn.Print()
 
+		#self.nn.Print()
+	def isCol(self):
+		stateOfLinkZero = p.getBasePositionAndOrientation(self.robotId)[0]
+		#rint(p.getBasePositionAndOrientation(self.robotId))
+		positionOfLinkZero =  stateOfLinkZero
+		if round(math.dist(self.bigblock, positionOfLinkZero[0:2]), 2) == 0.0 :
+			for a in range(0,100):
+				print("HIT \n HIT \n HIT HIT HIT HIT\n")
+				#exit()
+			self.ifHit = 50
 	def Get_Fitness(self):
 		#stateOfLinkZero = p.getLinkState(self.robotId, pyrosim.linkNamesToIndices['Head'])
-		print(p.getBasePositionAndOrientation(self.robotId))
+		#print(p.getBasePositionAndOrientation(self.robotId))
 		stateOfLinkZero = p.getBasePositionAndOrientation(self.robotId)[0]
-		print(pyrosim.linkNamesToIndices)
+		#rint(p.getBasePositionAndOrientation(self.robotId))
 		positionOfLinkZero =  stateOfLinkZero
+		#print(positionOfLinkZero)
+		print
+		fit = -numpy.sqrt(numpy.sum(( numpy.array(self.bigblock) - numpy.array(positionOfLinkZero[:2]))**2)) + self.ifHit
 
-		fit = -math.dist([5,10], positionOfLinkZero[0:2])
+
 		print("finalposition:" + str(positionOfLinkZero))
+		#print()
 		f = open("tmp" + self.brainval +".txt", "w")
 		f.write(str(fit))
 		f.close()

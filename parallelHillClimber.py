@@ -75,4 +75,5 @@ class PARALLEL_HILL_CLIMBER:
 		parentfitness = [self.parents[parent].fitness for parent in self.parents]
 		minarg = numpy.argmax(parentfitness)
 		print(self.parents[minarg].fitness)
-		self.parents[minarg].Start_Simulation("GUI")
+		self.parents[minarg].Best_Simulation("GUI")
+		exit()
