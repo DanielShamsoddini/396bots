@@ -33,7 +33,7 @@ class SIMULATION:
         sleeptime = 1/60000
         if self.directOrGUI == "DIRECT":
             sleeptime = 0
-        for a in range(0,5000):
+        for a in range(0,4000):
             p.stepSimulation()
             self.robot.Sense()
             self.robot.Think()
