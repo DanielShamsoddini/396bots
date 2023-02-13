@@ -23,17 +23,17 @@ class SIMULATION:
 
 
 
-
+        print(brainnn)
         self.world = WORLD(brainnn)
         self.robot = ROBOT(brainnn)
         self.Run()
         #self.delee()
 
     def Run(self):
-        sleeptime = 1/60000
+        sleeptime = 1/60
         if self.directOrGUI == "DIRECT":
             sleeptime = 0
-        for a in range(0,4000):
+        for a in range(0,6000):
             p.stepSimulation()
             self.robot.Sense()
             self.robot.Think()

@@ -70,6 +70,8 @@ class ROBOT:
 		#print(positionOfLinkZero)
 		print
 		fit = -numpy.sqrt(numpy.sum(( numpy.array(self.bigblock) - numpy.array(positionOfLinkZero[:2]))**2)) + self.ifHit
+		print(pyrosim.linkNamesToIndices)
+		#fit = numpy.sqrt(numpy.sum((numpy.array(self.bigblock) - numpy.array(p.getBasePositionAndOrientation("Box4")[0]))))
 
 
 		print("finalposition:" + str(positionOfLinkZero))

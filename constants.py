@@ -1,10 +1,13 @@
 import math
-
-numberOfGenerations = 100
-populationSize = 5
+minsize = 0.5
+maxsize = 2
+randlen = 2
+odds = 3
+numberOfGenerations = 2
+populationSize = 2
 amplitudeB = math.pi/4.0
 frequencyB = 5
 phaseOffsetB = 0
 
-numMotorNeurons = 4
-numSensorNeurons = 5
+numMotorNeurons = 2
+numSensorNeurons = 1
