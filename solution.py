@@ -13,7 +13,7 @@ class SOLUTION:
 		self.weights = 2*numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons) - 1
 		self.myID = nextav
 		self.a = numpy.zeros((c.numSensorNeurons, c.numMotorNeurons))
-		self.randlength = c.randlen
+		self.randlength = random.randint(2,c.randlen-1)
 
 	def Create_World(self):
 		pyrosim.Start_SDF("world"+str(self.myID)+".sdf")
@@ -47,13 +47,19 @@ class SOLUTION:
 		tempsize2 = self.randsize()
 		tempsize3 = self.randsize()
 		tempsize4 = self.randsize()
-		pyrosim.Send_Cube(name = "Box0", pos = [0,0,1], size = tempsize)
-		pyrosim.Send_Joint(name = "Box0_Box1", parent = "Box0", child = "Box1", type = "revolute", position = [0, (tempsize[1] + tempsize2[1])/2.0, 0], jointAxis = "1 0 0")
-		pyrosim.Send_Cube(name = "Box1", pos = [0,0,1], size = tempsize2)
-		pyrosim.Send_Joint(name = "Box1_Box2", parent = "Box1", child = "Box2", type = "revolute", position = [0, (tempsize2[1] + tempsize3[1])/2.0, 0], jointAxis = "1 0 0")
-		pyrosim.Send_Cube(name = "Box2", pos = [0,0,1], size = tempsize3)
-		pyrosim.Send_Joint(name = "Box2_Box3", parent = "Box2", child = "Box3", type = "revolute", position = [0, (tempsize3[1] + tempsize4[1])/2.0, 0], jointAxis = "1 0 0")
-		pyrosim.Send_Cube(name = "Box3", pos = [0,0,1], size = tempsize4)
+
+		tempsize = [self.randsize() for a in range(self.randlength+1)]
+		pyrosim.Send_Cube(name = "Box0", pos = [0,0,1], size = tempsize[0])
+		for a in range(1,self.randlength+1):
+			pyrosim.Send_Joint(name = "Box"+str(a-1)+"_Box"+str(a), parent = "Box"+str(a-1) , child = "Box"+str(a), type = "revolute", position = [0, (tempsize[a-1][1] + tempsize[a][1])/2.0, 0], jointAxis = "1 0 0")
+			pyrosim.Send_Cube(name = "Box"+str(a), pos = [0,0,1], size = tempsize[a])
+		# pyrosim.Send_Cube(name = "Box0", pos = [0,0,1], size = tempsize)
+		# pyrosim.Send_Joint(name = "Box0_Box1", parent = "Box0", child = "Box1", type = "revolute", position = [0, (tempsize[1] + tempsize2[1])/2.0, 0], jointAxis = "1 0 0")
+		# pyrosim.Send_Cube(name = "Box1", pos = [0,0,1], size = tempsize2)
+		# pyrosim.Send_Joint(name = "Box1_Box2", parent = "Box1", child = "Box2", type = "revolute", position = [0, (tempsize2[1] + tempsize3[1])/2.0, 0], jointAxis = "1 0 0")
+		# pyrosim.Send_Cube(name = "Box2", pos = [0,0,1], size = tempsize3)
+		# pyrosim.Send_Joint(name = "Box2_Box3", parent = "Box2", child = "Box3", type = "revolute", position = [0, (tempsize3[1] + tempsize4[1])/2.0, 0], jointAxis = "1 0 0")
+		# pyrosim.Send_Cube(name = "Box3", pos = [0,0,1], size = tempsize4)
 		# for a in range(1, self.randlength):
 		# 	sizee = self.randsize()
 			

@@ -1,7 +1,7 @@
 import math
 minsize = 0.5
 maxsize = 2
-randlen = 2
+randlen = 10
 odds = 3
 numberOfGenerations = 2
 populationSize = 2
