@@ -13,7 +13,7 @@ class SOLUTION:
 		self.weights = 2*numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons) - 1
 		self.myID = nextav
 		self.a = numpy.zeros((c.numSensorNeurons, c.numMotorNeurons))
-		self.randlength = random.randint(2,c.randlen-1)
+		self.randlength = random.randint(3,c.randlen-1)
 		self.sensorrandom = [random.randint(0, 5) for a in range(self.randlength+1)]
 
 	def Create_World(self):
@@ -107,9 +107,18 @@ class SOLUTION:
 			pyrosim.Send_Motor_Neuron(name = neurontracker, jointName = "Box"+str(a)+"_"+"Box"+str(a+1))
 			neurontracker = neurontracker + 1
 		
+		motorneurons = {}
+		abc = 0
+		for xyz in range(len(self.sensorrandom)):
+			if self.sensorrandom[xyz] < c.odds:
+				motorneurons[abc] = xyz
+				abc = abc + 1
+
+		print(motorneurons)
+		print(len(motorneurons))
 		for b in range(0,self.randlength):
 			if self.sensorrandom[b] > c.odds:
-				pyrosim.Send_Synapse(sourceNeuronName=b, targetNeuronName = random.randint(0,neurontracker), weight = 2*numpy.random.rand() - 1 )
+				pyrosim.Send_Synapse(sourceNeuronName=b, targetNeuronName = motorneurons[random.randint(0,len(motorneurons.keys()) -1)], weight = 2*numpy.random.rand() - 1 )
 
 
 #       pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
