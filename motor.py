@@ -13,7 +13,7 @@ class MOTOR:
 
 
 	def Act(self,t):
-		pyrosim.Set_Motor_For_Joint(bodyIndex = self.robotId, jointName = self.jointName, controlMode = p.POSITION_CONTROL, targetPosition = t, maxForce = 20)
+		pyrosim.Set_Motor_For_Joint(bodyIndex = self.robotId, jointName = self.jointName, controlMode = p.POSITION_CONTROL, targetPosition = t, maxForce = 40)
 		self.a = self.a + 1
 
 	def Save_Values(self):

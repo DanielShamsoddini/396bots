@@ -14,6 +14,7 @@ class SOLUTION:
 		self.myID = nextav
 		self.a = numpy.zeros((c.numSensorNeurons, c.numMotorNeurons))
 		self.randlength = random.randint(2,c.randlen-1)
+		self.sensorrandom = [random.randint(0, 5) for a in range(self.randlength+1)]
 
 	def Create_World(self):
 		pyrosim.Start_SDF("world"+str(self.myID)+".sdf")
@@ -47,12 +48,17 @@ class SOLUTION:
 		tempsize2 = self.randsize()
 		tempsize3 = self.randsize()
 		tempsize4 = self.randsize()
-
+		firstcolor = "Blue"
+		if self.sensorrandom[0] > c.odds:
+			firstcolor = "Green"
 		tempsize = [self.randsize() for a in range(self.randlength+1)]
-		pyrosim.Send_Cube(name = "Box0", pos = [0,0,1], size = tempsize[0])
+		pyrosim.Send_Cube(name = "Box0", pos = [0,0,1], size = tempsize[0], color = firstcolor)
 		for a in range(1,self.randlength+1):
-			pyrosim.Send_Joint(name = "Box"+str(a-1)+"_Box"+str(a), parent = "Box"+str(a-1) , child = "Box"+str(a), type = "revolute", position = [0, (tempsize[a-1][1] + tempsize[a][1])/2.0, 0], jointAxis = "1 0 0")
-			pyrosim.Send_Cube(name = "Box"+str(a), pos = [0,0,1], size = tempsize[a])
+			colorr = "Blue"
+			if self.sensorrandom[a] > c.odds:
+				colorr = "Green"
+			pyrosim.Send_Joint(name = "Box"+str(a-1)+"_Box"+str(a), parent = "Box"+str(a-1) , child = "Box"+str(a), type = "revolute", position = [0, (tempsize[a-1][1] + tempsize[a][1])/2.0, 0], jointAxis = "0 0 1")
+			pyrosim.Send_Cube(name = "Box"+str(a), pos = [0,0,1], size = tempsize[a], color = colorr)
 		# pyrosim.Send_Cube(name = "Box0", pos = [0,0,1], size = tempsize)
 		# pyrosim.Send_Joint(name = "Box0_Box1", parent = "Box0", child = "Box1", type = "revolute", position = [0, (tempsize[1] + tempsize2[1])/2.0, 0], jointAxis = "1 0 0")
 		# pyrosim.Send_Cube(name = "Box1", pos = [0,0,1], size = tempsize2)
@@ -95,12 +101,17 @@ class SOLUTION:
 		pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
 		neurontracker = 0
 		for a in range(0, self.randlength):
-			if random.randint(1, 6) < c.odds:
+			if self.sensorrandom[a] > c.odds:
 				pyrosim.Send_Sensor_Neuron(name = neurontracker, linkName = "Box"+str(a))
 				neurontracker = neurontracker + 1
 			pyrosim.Send_Motor_Neuron(name = neurontracker, jointName = "Box"+str(a)+"_"+"Box"+str(a+1))
 			neurontracker = neurontracker + 1
 		
+		for b in range(0,self.randlength):
+			if self.sensorrandom[b] > c.odds:
+				pyrosim.Send_Synapse(sourceNeuronName=b, targetNeuronName = random.randint(0,neurontracker), weight = 2*numpy.random.rand() - 1 )
+
+
 #       pyrosim.Start_NeuralNetwork("brain" + str(self.myID) + ".nndf")
 #       pyrosim.Send_Sensor_Neuron(name = 0, linkName = "Torso")
 #       pyrosim.Send_Sensor_Neuron(name = 1, linkName = "BackLeg")

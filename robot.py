@@ -30,6 +30,7 @@ class ROBOT:
 	def Sense(self):
 		for sensorss in self.sensors:
 			self.sensors[sensorss].Get_Value()
+		#print(self.sensors)
 		self.isCol()
 
 	def Prepare_To_Act(self):
@@ -39,6 +40,7 @@ class ROBOT:
 		self.offset = c.phaseOffsetB
 		for jointName in pyrosim.jointNamesToIndices:
 			self.motors[jointName] = MOTOR(jointName,self.robotId, self.amplitude, self.frequency, self.offset)
+		print(self.motors)
 
 	def Act(self):
 		for neuronName in self.nn.Get_Neuron_Names():
