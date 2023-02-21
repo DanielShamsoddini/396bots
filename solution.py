@@ -35,7 +35,9 @@ class SOLUTION:
 			return [0, blocksize[1], blocksize[2]/2]
 		
 	
-	def randsize(self):
+	def randsize(self, toplegs = False):
+		if toplegs:
+			return [random.uniform(c.minsizel, c.maxsizel), random.uniform(c.minsizel, c.maxsizel), random.uniform(c.minsizel, c.maxsizel)]
 		return [random.uniform(c.minsize, c.maxsize), random.uniform(c.minsize, c.maxsize), random.uniform(c.minsize, c.maxsize)]
 
 	def Create_Body(self):
@@ -59,6 +61,24 @@ class SOLUTION:
 				colorr = "Green"
 			pyrosim.Send_Joint(name = "Box"+str(a-1)+"_Box"+str(a), parent = "Box"+str(a-1) , child = "Box"+str(a), type = "revolute", position = [0, (tempsize[a-1][1] + tempsize[a][1])/2.0, 0], jointAxis = "0 0 1")
 			pyrosim.Send_Cube(name = "Box"+str(a), pos = [0,0,1], size = tempsize[a], color = colorr)
+
+		tempsizeb = [self.randsize(True) for a in range(2*(self.randlength+1))]
+		colorr = "Green"
+		for b in range(0,self.randlength):
+			pyrosim.Send_Joint(name = "Box"+str(b)+"_Box"+str(b+self.randlength+2), parent = "Box"+str(b) , child = "Box"+str(b+self.randlength+2), type = "revolute", position = [(tempsize[b][0] + tempsizeb[b][0])/2.0, 0, 0], jointAxis = "0 0 1")
+			pyrosim.Send_Cube(name = "Box"+str(b+self.randlength+2), pos = [0,0,1], size = tempsizeb[b], color = colorr)
+
+		for b in range(0,self.randlength):
+			pyrosim.Send_Joint(name = "Box"+str(b)+"_Box"+str(b+2*(self.randlength+2)), parent = "Box"+str(b) , child = "Box"+str(b+2*(self.randlength+2)), type = "revolute", position = [-(tempsize[b][0] + tempsizeb[b][0])/2.0, 0, 0], jointAxis = "0 0 1")
+			pyrosim.Send_Cube(name = "Box"+str(b+2*(self.randlength+2)), pos = [0,0,1], size = tempsizeb[b], color = colorr)
+		# for b in range (1, self.randlength+1):
+		# 	print()
+		# 	colorr = "Blue"
+		# 	pyrosim.Send_Joint(name = "Box"+str(b)+"_Box"+str(b+self.randlength+2), parent = "Box"+str(b) , child = "Box"+str(b+self.randlength+2), type = "revolute", position = [(tempsize[a-1][1] + tempsize[a][1])/2.0, tempsize[b][1]], jointAxis = "0 0 1")
+		# 	pyrosim.Send_Cube(name = "Box"+str(b+self.randlength+2), pos = [0,0,1], size = tempsize[a], color = colorr)
+		# 	#if random.randint() == 1:
+
+
 		# pyrosim.Send_Cube(name = "Box0", pos = [0,0,1], size = tempsize)
 		# pyrosim.Send_Joint(name = "Box0_Box1", parent = "Box0", child = "Box1", type = "revolute", position = [0, (tempsize[1] + tempsize2[1])/2.0, 0], jointAxis = "1 0 0")
 		# pyrosim.Send_Cube(name = "Box1", pos = [0,0,1], size = tempsize2)
