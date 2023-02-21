@@ -22,3 +22,4 @@ This leads to a wide potential variety of shapes, and makes it so that blocks ca
 Its neurons are also connected in a semi random way, as while each block either has motor/possible sensor neurons, the synapse connections for these are decided randomly, meaning that for example a vestigial sensor can potentially be linked to a core block motor or vice versa. Movement as of right now is still using the standard pyrosim single joint axis for each joint, but given the potentially large # of blocks it was my opinion that the robot should still be able to have substantial freedom of movement thanks to the vestigial blocks.
 
 To run this program clone this repository and run runsnakemake.py
+The # of potential base blocks can be adjusted in the constants.py file by modifying the randomlength variable.
