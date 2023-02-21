@@ -13,4 +13,7 @@ This program runs and generates a random creature in 3D morphospace
 It does this by following the diagram drawn out below
 		
 
+<img width="996" alt="a7 photo" src="https://user-images.githubusercontent.com/23564433/220255009-096bab20-a135-4bbb-a26d-ad78dd6e6122.png">
+
+
 To run this program clone this repository and run runsnakemake.py
