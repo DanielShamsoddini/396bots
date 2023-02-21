@@ -8,7 +8,7 @@ PyBullet: https://pybullet.org/wordpress/
 Pyrosim: https://github.com/jbongard/pyrosim
 
 
-This program runs and generates a random creature in a 3D morphospace
+This program runs and generates a random creature in a 3D morphospace in the PyBullet engine.
 
 It does this by following the diagram drawn out below
 		
