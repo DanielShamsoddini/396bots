@@ -9,6 +9,7 @@ Pyrosim: https://github.com/jbongard/pyrosim
 
 
 This program runs and generates a random creature in a 3D morphospace in the PyBullet engine.
+![image](https://user-images.githubusercontent.com/23564433/220256338-41bbd57a-cefc-4e7a-a23d-f39992473e8c.png)
 
 It does this by following the diagram drawn out below
 		
