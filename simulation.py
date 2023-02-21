@@ -14,7 +14,7 @@ class SIMULATION:
     def __init__(self, dOrGUI, brainnn):
         self.directOrGUI = dOrGUI
         if self.directOrGUI == "DIRECT":
-            physicsClient = p.connect(p.DIRECT)
+            physicsClient = p.connect(p.GUI)
         elif self.directOrGUI == "GUI":
             physicsClient  = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())

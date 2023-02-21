@@ -55,22 +55,40 @@ class SOLUTION:
 			firstcolor = "Green"
 		tempsize = [self.randsize() for a in range(self.randlength+1)]
 		pyrosim.Send_Cube(name = "Box0", pos = [0,0,1], size = tempsize[0], color = firstcolor)
+		randxy = [0 for a in range(self.randlength+1)]
+		randposneg = [0 for a in range(self.randlength+1)]
+		randzz = [0 for a in range(self.randlength+1)]
 		for a in range(1,self.randlength+1):
 			colorr = "Blue"
 			if self.sensorrandom[a] > c.odds:
 				colorr = "Green"
-			pyrosim.Send_Joint(name = "Box"+str(a-1)+"_Box"+str(a), parent = "Box"+str(a-1) , child = "Box"+str(a), type = "revolute", position = [0, (tempsize[a-1][1] + tempsize[a][1])/2.0, 0], jointAxis = "0 0 1")
+			xyz = [0,0]
+			
+			randxy[a] = random.randint(0,1)
+			
+			randposneg[a] = pow(-1, random.randint(1,2))
+			print(randposneg)
+			if randxy[a] == 1:
+				randposneg[a] = -1
+			xyz[randxy[a]] = randposneg[a]*(tempsize[a-1][randxy[a]] + tempsize[a][randxy[a]])/2.0
+			randz = random.randint(-1,1)
+			randzz[a] = randz*(tempsize[a-1][2] + tempsize[a][2])/2.0
+			pyrosim.Send_Joint(name = "Box"+str(a-1)+"_Box"+str(a), parent = "Box"+str(a-1) , child = "Box"+str(a), type = "revolute", position = [xyz[0], xyz[1], randzz[a]], jointAxis = "0 0 1")
 			pyrosim.Send_Cube(name = "Box"+str(a), pos = [0,0,1], size = tempsize[a], color = colorr)
 
 		tempsizeb = [self.randsize(True) for a in range(2*(self.randlength+1))]
 		colorr = "Green"
-		for b in range(0,self.randlength):
-			pyrosim.Send_Joint(name = "Box"+str(b)+"_Box"+str(b+self.randlength+2), parent = "Box"+str(b) , child = "Box"+str(b+self.randlength+2), type = "revolute", position = [(tempsize[b][0] + tempsizeb[b][0])/2.0, 0, 0], jointAxis = "0 0 1")
-			pyrosim.Send_Cube(name = "Box"+str(b+self.randlength+2), pos = [0,0,1], size = tempsizeb[b], color = colorr)
+		# for b in range(0,self.randlength):
+		# 	if random.randint(0,1) < 1: 
+		# 		pyrosim.Send_Joint(name = "Box"+str(b)+"_Box"+str(b+self.randlength+2), parent = "Box"+str(b) , child = "Box"+str(b+self.randlength+2), type = "revolute", position = [(tempsize[b][0] + tempsizeb[b][0])/2.0, 0, 0], jointAxis = "0 1 0")
+		# 		pyrosim.Send_Cube(name = "Box"+str(b+self.randlength+2), pos = [0,0,1], size = tempsizeb[b], color = colorr)
 
-		for b in range(0,self.randlength):
-			pyrosim.Send_Joint(name = "Box"+str(b)+"_Box"+str(b+2*(self.randlength+2)), parent = "Box"+str(b) , child = "Box"+str(b+2*(self.randlength+2)), type = "revolute", position = [-(tempsize[b][0] + tempsizeb[b][0])/2.0, 0, 0], jointAxis = "0 0 1")
-			pyrosim.Send_Cube(name = "Box"+str(b+2*(self.randlength+2)), pos = [0,0,1], size = tempsizeb[b], color = colorr)
+		# for b in range(0,self.randlength):
+		# 	if random.randint(0,1) < 1:
+		# 		pyrosim.Send_Joint(name = "Box"+str(b)+"_Box"+str(b+2*(self.randlength+2)), parent = "Box"+str(b) , child = "Box"+str(b+2*(self.randlength+2)), type = "revolute", position = [-(tempsize[b][0] + tempsizeb[b][0])/2.0, 0, 0], jointAxis = "0 1 0")
+		# 		pyrosim.Send_Cube(name = "Box"+str(b+2*(self.randlength+2)), pos = [0,0,1], size = tempsizeb[b], color = colorr)
+
+		
 		# for b in range (1, self.randlength+1):
 		# 	print()
 		# 	colorr = "Blue"
@@ -138,6 +156,7 @@ class SOLUTION:
 		print(len(motorneurons))
 		for b in range(0,self.randlength):
 			if self.sensorrandom[b] > c.odds:
+				print(b)
 				pyrosim.Send_Synapse(sourceNeuronName=b, targetNeuronName = motorneurons[random.randint(0,len(motorneurons.keys()) -1)], weight = 2*numpy.random.rand() - 1 )
 
 

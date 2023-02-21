@@ -1,12 +1,12 @@
 import math
-minsize = 0.3
-maxsize = 0.8
-minsizel = 0.2
-maxsizel = 0.6
-randlen = 5
+minsize = 0.2
+maxsize = 0.7
+minsizel = 0.05
+maxsizel = 0.3
+randlen = 12
 odds = 3
-numberOfGenerations = 2
-populationSize = 2
+numberOfGenerations = 40
+populationSize = 1
 amplitudeB = math.pi/4.0
 frequencyB = 5
 phaseOffsetB = 0
