@@ -8,12 +8,16 @@ PyBullet: https://pybullet.org/wordpress/
 Pyrosim: https://github.com/jbongard/pyrosim
 
 
-This program runs and generates a random creature in 3D morphospace
+This program runs and generates a random creature in a 3D morphospace
 
 It does this by following the diagram drawn out below
 		
 
 <img width="996" alt="a7 photo" src="https://user-images.githubusercontent.com/23564433/220255009-096bab20-a135-4bbb-a26d-ad78dd6e6122.png">
 
+Morphospace Description:
+
+This leads to a wide potential variety of shapes, and makes it so that blocks can have anywhere from 1 to 4 connected blocks. However, some shapes are still not possible as these vestigial blocks are not capable of randomly linking to more blocks, meaning that a centipede or spiral like shape can be expected a lot of the time.
+Its neurons are also connected in a semi random way, as while each block either has motor/possible sensor neurons, the synapse connections for these are decided randomly, meaning that for example a vestigial sensor can potentially be linked to a core block motor or vice versa.
 
 To run this program clone this repository and run runsnakemake.py
